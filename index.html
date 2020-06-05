@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+  body {
+   margin-left: 130px;
+  }
+  .button {
+  background-color: #111111;
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+.button-inverted {
+  background-color: #e0e0e0;
+  border: none;
+  color: #111111;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+
+}
+  /*
+   * this is the same as writing
+   * body { margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;}
+   * I'm adding px here for clarity sake but the unit is not really needed if you have 0
+   * look into em, pt and % for other unit types 
+   * the rules are always clockwise: top, right, bottom, left
+  */
+</style>
+<body style="margin:100;padding:10">
+  <h1>JSON Unescape</h1>
+  <h2>Escape and Unescape Tool</h2>
+<textarea id="inputTextArea" rows="25" cols="120" style="background-color:#eeeeee;"></textarea>
+<br>
+<button class="button" type="button" onclick="unescapeString()">Unescape</button>
+
+<button class="button-inverted" type="button" onclick="escapeString()">Escape</button>
+
+
+<script >
+
+    function unescapeString() {
+        var t = document.getElementById("inputTextArea").value;
+        myEscapedJSONString = t.replace(/\\r/g, "\r").replace(/\\n/g, "\n").replace(/\\'/g, "'").replace(/\\\"/g, '"').replace(/\\&/g, "&").replace(/\\\\/g, "\\").replace(/\\t/g, "\t").replace(/\\b/g, "\b").replace(/\\f/g, "\f").replace(/\\x2F/g, "/").replace(/\\x3C/g, "<").replace(/\\x3E/g, ">");
+        document.getElementById("inputTextArea").value = myEscapedJSONString;
+
+    };
+
+function escapeString() {
+    var t = document.getElementById("inputTextArea").value;
+
+    var e = "",
+        a = 0;
+    for (a = 0; a < t.length; a++) {
+        e += javascriptEscapeCode(t.charAt(a), !1);
+    }
+    document.getElementById("inputTextArea").value = e;
+}
+
+
+function javascriptEscapeCode(t) {
+    switch (t.charAt(0)) {
+        case "\r":
+            return "\\r";
+        case "\n":
+            return "\\n";
+        case "\v":
+            return "\\v";
+        case "'":
+            return "\\'";
+        case '"':
+            return '\\"';
+        case "&":
+            return "\\&";
+        case "\\":
+            return "\\\\";
+        case "\t":
+            return "\\t";
+        case "\b":
+            return "\\b";
+        case "\f":
+            return "\\f";
+        default:
+            return t
+    }
+}
+
+</script>
+
+</body>
+</html>
